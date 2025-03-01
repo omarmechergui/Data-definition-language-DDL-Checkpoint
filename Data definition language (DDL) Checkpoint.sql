@@ -1,0 +1,43 @@
+-- Create the CUSTOMER table
+CREATE TABLE CUSTOMER (
+    CustomerID NUMBER(10) PRIMARY KEY,
+    Name VARCHAR2(50) NOT NULL,
+    Address VARCHAR2(100),
+    Phone VARCHAR2(15)
+);
+
+-- Create the PRODUCT table
+CREATE TABLE PRODUCT (
+    ProductID NUMBER(10) PRIMARY KEY,
+    Name VARCHAR2(50) NOT NULL,
+    Price NUMBER(10, 2),
+    StockQuantity NUMBER(10)
+);
+
+-- Create the ORDERS table
+CREATE TABLE ORDERS (
+    OrderID NUMBER(10) PRIMARY KEY,
+    CustomerID NUMBER(10),
+    OrderDate DATE DEFAULT SYSDATE,
+    FOREIGN KEY (CustomerID) REFERENCES CUSTOMER(CustomerID)
+);
+
+-- Create the ORDER_DETAILS table
+CREATE TABLE ORDER_DETAILS (
+    OrderDetailID NUMBER(10) PRIMARY KEY,
+    OrderID NUMBER(10),
+    ProductID NUMBER(10),
+    Quantity NUMBER(10),
+    FOREIGN KEY (OrderID) REFERENCES ORDERS(OrderID),
+    FOREIGN KEY (ProductID) REFERENCES PRODUCT(ProductID)
+);
+
+
+
+ALTER TABLE PRODUCT
+ADD Category VARCHAR2(20);
+
+
+
+ALTER TABLE ORDERS
+ADD OrderDate DATE DEFAULT SYSDATE;
